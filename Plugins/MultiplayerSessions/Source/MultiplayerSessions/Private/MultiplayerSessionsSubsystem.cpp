@@ -5,6 +5,7 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
 #include "Online/OnlineSessionNames.h" // For SEARCH_LOBBIES
+#include "Engine/Engine.h"
 
 UMultiplayerSessionsSubsystem::UMultiplayerSessionsSubsystem(): 
 	CreateSessionCompleteDelegate(
@@ -31,6 +32,16 @@ UMultiplayerSessionsSubsystem::UMultiplayerSessionsSubsystem():
 	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
 	if (Subsystem) {
 		SessionInterface = Subsystem->GetSessionInterface();
+
+		/**if (GEngine) {
+			GEngine->AddOnScreenDebugMessage(
+				-1.f,
+				15.f,
+				FColor::Blue,
+				FString::Printf(TEXT("Found subsystem %s"), *Subsystem->GetSubsystemName().ToString())
+			);
+		}*/
+		UE_LOG(LogTemp, Warning, TEXT("Found subsystem %s"), *Subsystem->GetSubsystemName().ToString())
 	} 
 }
 
@@ -48,7 +59,7 @@ void UMultiplayerSessionsSubsystem::CreateSession(int32 NumPublicConnections, FS
 		DestroySession();
 	}
 
-	// Sotre the delegate ina FDelegateHandle so we can later remove it from the delegate list
+	// Store the delegate in a FDelegateHandle so we can later remove it from the delegate list
 	CreateSessionCompleteDelegateHandle = SessionInterface->AddOnCreateSessionCompleteDelegate_Handle(CreateSessionCompleteDelegate);
 	LastSessionSettings = MakeShareable(new FOnlineSessionSettings());
 	LastSessionSettings->bIsLANMatch = IOnlineSubsystem::Get()->GetSubsystemName() == "NULL" ? true : false;
