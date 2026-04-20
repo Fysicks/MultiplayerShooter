@@ -16,9 +16,28 @@ class BLASTER_API AProjectileRocket : public AProjectile
 	
 public:
 	AProjectileRocket();
+	virtual void Destroyed() override;
 
 protected:
 	virtual void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	virtual void BeginPlay() override;
+
+	void DestroyTimerFinished();
+
+	UPROPERTY(EditAnywhere)
+	class UNiagaraSystem* TrailSystem;
+
+	UPROPERTY()
+	class UNiagaraComponent* TrailSystemComponent;
+
+	UPROPERTY(EditAnywhere)
+	class USoundCue* ProjectileLoop;
+
+	UPROPERTY()
+	class UAudioComponent* ProjectileLoopComponent;
+
+	UPROPERTY(EditAnywhere)
+	class USoundAttenuation* LoopingSoundAttenuation;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -28,4 +47,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float DamageFalloffOuterRadius = 500.f;
 
+	FTimerHandle DestroyTimer;
+	UPROPERTY(EditAnywhere)
+	float DestroyTime = 3.f;
 };

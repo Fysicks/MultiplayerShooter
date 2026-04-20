@@ -487,6 +487,7 @@ void ABlasterCharacter::MulticastElim_Implementation() {
 
 	// Disable character movement
 	bDisableGameplay = true;
+	GetCharacterMovement()->DisableMovement(); // Stops dead char from falling through floor
 	if (Combat) {
 		Combat->FireButtonPressed(false);
 	}
