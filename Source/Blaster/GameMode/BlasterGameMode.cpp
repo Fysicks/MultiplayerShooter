@@ -15,6 +15,7 @@ namespace MatchState {
 
 ABlasterGameMode::ABlasterGameMode() {
 	bDelayedStart = true; // Makes it stay in WaitingToStart until we call StartMatch()
+	// bUseSeamlessTravel = true; // Having this enabled causes a crash upon RestartGame(). Something to do with the HUD
 }
 
 void ABlasterGameMode::Tick(float DeltaTime) {
@@ -33,15 +34,14 @@ void ABlasterGameMode::Tick(float DeltaTime) {
 	} else if (MatchState == MatchState::Cooldown) {
 		CountdownTime = CooldownTime + WarmupTime + MatchTime - GetWorld()->GetTimeSeconds() + LevelStartingTime;
 		if (CountdownTime <= 0.f) {
-			//bUseSeamlessTravel = true;
-			RestartGame();
-			/*
+			// RestartGame();
+
 			UWorld* World = GetWorld();
 			if (World) {
 				bUseSeamlessTravel = true;
 				World->ServerTravel(FString("/Game/Maps/CaptureTheFlag?listen"));
 			}
-			*/
+			
 		}
 	}
 }
@@ -56,7 +56,6 @@ void ABlasterGameMode::OnMatchStateSet() {
 		}
 	}
 }
-
 
 void ABlasterGameMode::BeginPlay() {
 	Super::BeginPlay();
