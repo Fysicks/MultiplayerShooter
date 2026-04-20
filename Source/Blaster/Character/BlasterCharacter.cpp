@@ -528,6 +528,14 @@ void ABlasterCharacter::MulticastElim_Implementation() {
 			GetActorLocation()
 		);
 	}
+	bool bHideSniperScope = IsLocallyControlled() &&
+		Combat &&
+		Combat->bAiming &&
+		Combat->EquippedWeapon &&
+		Combat->EquippedWeapon->GetWeaponType() == EWeaponType::EWT_Sniper;
+	if (bHideSniperScope) {
+		ShowSniperScopeWidget(false);
+	}
 }
 
 void ABlasterCharacter::ElimTimerFinished() {
