@@ -41,7 +41,7 @@ UMultiplayerSessionsSubsystem::UMultiplayerSessionsSubsystem():
 				FString::Printf(TEXT("Found subsystem %s"), *Subsystem->GetSubsystemName().ToString())
 			);
 		}*/
-		UE_LOG(LogTemp, Warning, TEXT("Found subsystem %s"), *Subsystem->GetSubsystemName().ToString())
+		//UE_LOG(LogTemp, Warning, TEXT("Found subsystem %s"), *Subsystem->GetSubsystemName().ToString())
 	} 
 }
 
