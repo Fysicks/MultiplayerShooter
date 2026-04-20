@@ -429,6 +429,9 @@ void ABlasterCharacter::PlayReloadMontage() {
 		case EWeaponType::EWT_Sniper:
 			SectionName = FName("Rifle");
 			break;
+		case EWeaponType::EWT_GrenadeLauncher:
+			SectionName = FName("Rifle");
+			break;
 		}
 		PlayMontage(ReloadMontage, SectionName);
 	}
